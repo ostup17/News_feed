@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test_work/features/presentation/config.dart';
 import 'package:test_work/features/presentation/widgets/app_bar.dart';
 
-import '../widgets/button.dart';
 import '../widgets/input.dart';
 class Registration extends StatelessWidget {
   @override
@@ -68,8 +68,25 @@ class RegistrationBody extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 56, horizontal: 16),
               child: Column(
-                children: const [
-                  AuthButton(navigationScreen: '/test', title: 'Зарегистрироваться',),
+                children: [
+                SizedBox(
+                    width: 343,
+                    height: 64,
+                    child:  ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(ColorConfig.buttonHome),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                )
+                            )
+                        ),
+                        onPressed: () {
+                          context.go('/');
+                        },
+                        child: const Text('Зарегистрироваться', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700,fontSize: 16),)
+                    )
+                ),
                 ],
               ),
             )

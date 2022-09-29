@@ -26,9 +26,9 @@ class _MyMapState extends State<MyMap> {
   }
 
  @override
-  void initState() async {
+  void initState() {
    super.initState();
-   await getCurrentPosition();
+   getCurrentPosition();
  }
 
   @override
@@ -46,13 +46,22 @@ class _MyMapState extends State<MyMap> {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.example.app',
               ),
-              MarkerLayer(
-                markers: [
-                  Marker(
-                      point: LatLng(_myPosition.latitude, _myPosition.longitude),
-                      builder: (context) => const ImageIcon(AssetImage('assets/images/mePlace.png'), color: Colors.red,)
-                  )
-                ],
+              FutureBuilder(
+                  future: getCurrentPosition(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return  MarkerLayer(
+                        markers: [
+                          Marker(
+                              point: LatLng(_myPosition.latitude, _myPosition.longitude),
+                              builder: (context) => const ImageIcon(AssetImage('assets/images/mePlace.png'), color: Colors.red,)
+                          )
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  }
               )
             ],
           ),
