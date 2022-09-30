@@ -12,11 +12,8 @@ class News extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Manrope'
-      ),
-      home: NewsBody(),
+    return const Scaffold(
+      body: NewsBody(),
     );
   }
 }

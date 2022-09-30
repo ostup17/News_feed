@@ -10,20 +10,64 @@ String authModelToJson(AuthModel data) => json.encode(data.toJson());
 
 class AuthModel {
   AuthModel({
-    required this.email,
-    required this.password,
+    required this.tokens,
+    required this.user,
   });
 
-  String email;
-  String password;
+  Tokens tokens;
+  User user;
 
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
-    email: json["email"],
-    password: json["password"],
+    tokens: Tokens.fromJson(json["tokens"]),
+    user: User.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
+    "tokens": tokens.toJson(),
+    "user": user.toJson(),
+  };
+}
+
+class Tokens {
+  Tokens({
+    required this.accessToken,
+    required this.refreshToken,
+  });
+
+  String accessToken;
+  String refreshToken;
+
+  factory Tokens.fromJson(Map<String, dynamic> json) => Tokens(
+    accessToken: json["accessToken"],
+    refreshToken: json["refreshToken"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "accessToken": accessToken,
+    "refreshToken": refreshToken,
+  };
+}
+
+class User {
+  User({
+    required this.id,
+    required this.email,
+    required this.nickname,
+  });
+
+  int id;
+  String email;
+  String nickname;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    email: json["email"],
+    nickname: json["nickname"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
     "email": email,
-    "password": password,
+    "nickname": nickname,
   };
 }
